@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
+    // 图书详情管理视图
     public function toBook(){
         $book = new Book();
 
@@ -15,5 +16,10 @@ class BookController extends Controller
         return view('admin/book/book',[
             'books' => $books,
         ]);
+    }
+
+
+    public function toBookAdd(){
+
     }
 }

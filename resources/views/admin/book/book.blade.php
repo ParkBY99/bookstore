@@ -20,6 +20,18 @@
                 </div><!-- /.container-fluid -->
             </section>
             <div class="card">
+                <div class="card-header">
+                    <span><h3 class="card-title">图书详情列表</h3></span>
+                    <span style="float: right;">
+                        <div class="btn-group">
+                            <a class="btn btn-add" href="{{url('admin/books/category_add')}}" style="">
+                                <i class="nav-icon fas fa-plus-square"></i>
+                                &ensp;添加图书
+                            </a>
+                        </div>
+                    </span>
+                </div>
+                <!-- ./card-header -->
                 <div class="card-body table-responsive p-0">
                     <table id="book-list" class="table table-bordered table-hover text-wrap">
                         <thead>
@@ -38,7 +50,7 @@
                             <th width="300">操作</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="bookBody">
                         @foreach($books as $book)
                             <tr data-widget="expandable-table" aria-expanded="false" style="word-break:break-all;word-wrap:break-word;">
                                 <td width="200">{{$book->name}}</td>
@@ -123,5 +135,6 @@
             });
 
         });
+        $('#bookBody tr:first').attr('aria-expanded',true);
     </script>
 @endsection

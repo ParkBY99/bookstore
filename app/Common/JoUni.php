@@ -8,7 +8,7 @@
 
 namespace App\Common;
 
-
+//封装一个Json不要编码Unicode的响应方法，即不编码中文。
 class JoUni
 {
     public $status;

@@ -13,4 +13,7 @@ class BookCategoryClasses extends Model
     public function user(){
         return $this->hasOne('App\Entity\User','id','update_user_id');
     }
+    public function category(){
+        return $this->hasOne('App\Entity\BookCategory','id','category_id');
+    }
 }

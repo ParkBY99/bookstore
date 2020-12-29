@@ -2,45 +2,43 @@
 
 @section('content')
     <div class="row">
-        <div class="col-12" style="margin: auto;">
+        <div class="col-12" style="margin: auto;margin-top: 20px;">
             <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1>图书分类</h1>
-                        </div>
-                    </div>
-                </div><!-- /.container-fluid -->
-            </section>
+            {{--<section class="content-header">--}}
+                {{--<div class="container-fluid">--}}
+                    {{--<div class="row mb-2">--}}
+                        {{--<div class="col-sm-6">--}}
+                            {{--<h1>图书分类</h1>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div><!-- /.container-fluid -->--}}
+            {{--</section>--}}
             <div class="card">
                 <div class="card-header">
                     <span><h3 class="card-title">图书分类</h3></span>
-                    <span style="float: right; margin-right: 10px;">
+                    <span style="float: right;">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-add">添加分类</button>
-                            <button type="button" class="btn btn-add dropdown-toggle dropdown-hover dropdown-icon"
-                                    data-toggle="dropdown">
-                                <span class="sr-only">下拉切换</span>
-                                <div class="dropdown-menu dropdown-menu-sm-right" role="menu"
-                                     style="background: rgba(188,88,38,.8);">
-                                    <a class="dropdown-item-add" href="#" style="">添加分类</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item-add" href="#" style="">添加类别</a>
-                                </div>
-                            </button>
+                            <a class="btn btn-add" href="{{url('admin/books/category_add')}}" style="">
+                                <i class="nav-icon fas fa-plus-square"></i>
+                                &ensp;添加分类/类别
+                            </a>
                         </div>
                     </span>
                 </div>
                 <!-- ./card-header -->
                 <div class="card-body p-0">
                     <table class="table table-hover">
-                        <tbody>
+                        <tbody id="categoryBody">
                         @foreach($categories as $category)
                         <tr data-widget="expandable-table" aria-expanded="false">
                             <td>
                                 <i class="fas fa-caret-right fa-fw"></i>
                                 {{$category->name}}
+                                <span class="float-right ">
+                                    <a class="btn btn-block btn-outline-diy" onclick="Del(1,{{$category->id}})">
+                                        <i class="fas fa-trash"></i>
+                                     </a>
+                                </span>
                             </td>
                         <tr class="expandable-body">
                             <td>
@@ -48,10 +46,10 @@
                                     <table class="table table-hover table-bordered">
                                         <thead>
                                         <tr>
-                                            <th style="width: 300px;">类别名称</th>
-                                            <th>简述</th>
-                                            <th style="width: 150px;">预览图</th>
-                                            <th style="width: 250px;">操作</th>
+                                            <th width="300">类别名称</th>
+                                            <th width="800">简述</th>
+                                            <th width="150">预览图</th>
+                                            <th width="250">操作</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -61,22 +59,21 @@
                                                     <td>{{$class->name}}</td>
                                                     <td>{{$class->description}}</td>
                                                     <td style="text-align: center">
-                                                        <img src="{{asset('/Bookstore/resources/upload/category-classes/p1.jpg')}}" style="width: 60px;">
-                                                        {{--/resources/upload/c05f7df2362d49399d78262637f03eb9.jpg--}}
+                                                        <img src="{{asset($class->classes_img)}}" style="width: 60px; max-width: 120px;">
+                                                        {{--/resources/upload/c05f7df2362d49399d78262637f03eb9.jpg-uploads--}}
                                                     </td>
                                                     <td>
                                                         <div class="btn-group" style="margin-left: 10px;">
-                                                            <a class="btn btn-block btn-outline-diy">
+                                                            <a class="btn btn-block btn-outline-diy" href="{{url('admin/books/classes_edit?classId=').$class->id}}">
                                                                 <i class="fas fa-edit"></i> 编辑
                                                             </a>
                                                         </div>
                                                         <div class="btn-group" style="margin-left: 10px;">
-                                                            <a class="btn btn-block btn-outline-diy">
+                                                            <a class="btn btn-block btn-outline-diy" onclick="Del(2,{{$class->id}})">
                                                                 <i class="fas fa-trash"></i> 删除
                                                             </a>
                                                         </div>
                                                         {{--<button type="button" class="btn btn-block btn-outline-diy">删除</button>--}}
-
                                                     </td>
                                                 </tr>
                                             @endif
@@ -100,4 +97,56 @@
     </div>
     <!-- /.row -->
 
+@endsection
+
+@section('my-js')
+    <script>
+        $('#categoryBody tr:first').attr('aria-expanded',true);
+    </script>
+    <script>
+        function Del(btnFlag,id) {
+            if (confirm("确定删除吗？")) {
+                var url = '';
+                if (btnFlag == 1){
+                    url = "{{url('admin/service/category/del')}}";
+                }else if (btnFlag == 2){
+                    url = "{{url('admin/service/classes/del')}}";
+                }
+                ajaxDel(url,id);
+            } else {
+                return;
+            }
+        }
+        function ajaxDel(delUrl,id) {
+            $.ajax({
+                type: 'post', // 提交方式 get/post
+                url: delUrl, // 需要提交的 url
+                dataType: 'json',
+                data: {
+                    id: id,
+                    _token: '{{csrf_token()}}',
+                },
+                success: function (data) {
+                    if (data == null) {
+                        alert('服务端错误');
+                        return;
+                    }
+                    if (data.status != 0) {
+                        alert(data.message);
+                        return;
+                    }
+                    alert(data.message);
+                    window.location.href = "{{url('admin/books/category')}}";
+                },
+                error: function (xhr, status, error) {
+                    // console.log(xhr);
+                    // console.log(status);
+                    // console.log(error);
+                    alert('ajax error');
+                },
+                beforeSend: function (xhr) {
+                },
+            })
+        }
+    </script>
 @endsection

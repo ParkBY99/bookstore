@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="{{asset('/admin/css/all.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('/admin/css/adminlte.min.css')}}">
+    <!-- layui style -->
+    <link rel="stylesheet" href="{{asset('/layui/css/layui.css')}}">
     @yield('my-css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -56,6 +58,8 @@
 <script src="{{asset('/admin/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('/admin/js/adminlte.min.js')}}"></script>
+<!-- layui -->
+<script src="{{asset('/layui/layui.js')}}"></script>
 @yield('my-js')
 
 </body>

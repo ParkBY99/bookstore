@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// /
 Route::get('/', function () {
     if (session()->get('admin')) {
         return redirect('/admin/index');
@@ -20,7 +21,9 @@ Route::get('/', function () {
         return redirect('/admin/login');
     }
 });
+
 Route::group(['prefix' => 'admin','namespace' => 'Admin'],function (){
+    // admin/
     // 登录页面视图
     Route::get('login','LoginController@toLogin');
     // 登录验证
@@ -35,18 +38,34 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function (){
         Route::get('index','LoginController@toExit');
         // 图书管理
         Route::group(['prefix' => 'books'],function (){
-            //图书分类视图
+            // admin/books
+            // 图书分类视图
             Route::get('category','CategoryController@toCategory');
             Route::get('category_add','CategoryController@toCategoryAdd');
-            Route::get('category_edit','CategoryController@toCategoryEdit');
-            //图书详情视图
+            Route::get('classes_edit/{classId}','CategoryController@toClassesEdit');
+            // 图书详情视图
             Route::get('book','BookController@toBook');
             Route::get('book_add','BookController@toBookAdd');
             Route::get('book_edit','BookController@toBookEdit');
-            //图书评论视图
+            // 图书评论视图
             Route::get('comment','CommentController@toComment');
         });
-
+        // admin/service
+        // 服务
+        Route::group(['prefix' => 'service'],function (){
+            // 图片上传
+            Route::post('category/img','CategoryController@categoryImg');
+            // 分类添加
+            Route::post('category/add','CategoryController@categoryAdd');
+            // 分类删除
+            Route::post('category/del','CategoryController@categoryDel');
+            // 类别添加
+            Route::post('classes/add','CategoryController@classesAdd');
+            // 类别删除
+            Route::post('classes/del','CategoryController@classesDel');
+            // 类别编辑
+            Route::post('classes/edit','CategoryController@classesEdit');
+        });
 
     });
 
