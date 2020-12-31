@@ -160,22 +160,24 @@
             if (btnFlag == 1){
                 if ($('#categoryName').val() == null || $('#categoryName').val() == '') {
                     $('#categoryValidate').html('<span style="color: #FF5722;">* 分类名称不能为空</span>');
-                    return;
+                }else {
+                    $('#categoryValidate').html('');
+                    url = "{{url('/admin/service/category/add')}}";
+                    arr['name'] = $('#categoryName').val();
+                    arr['image'] = $('#demo1').attr('src');
+                    arr['description'] = $('#categoryDescription').val();
                 }
-                url = "{{url('/admin/service/category/add')}}";
-                arr['name'] = $('#categoryName').val();
-                arr['image'] = $('#demo1').attr('src');
-                arr['description'] = $('#categoryDescription').val();
             }else if(btnFlag == 2){
                 if ($('#classesName').val() == null || $('#classesName').val() == '') {
                     $('#classesValidate').html('<span style="color: #FF5722;">* 类别名称不能为空</span>');
-                    return;
+                }else {
+                    $('#classesValidate').html('');
+                    url = "{{url('/admin/service/classes/add')}}";
+                    arr['name'] = $('#classesName').val();
+                    arr['categoryId'] = $('#classesCategory option:selected').attr('value');
+                    arr['image'] = $('#demo2').attr('src');
+                    arr['description'] = $('#classesDescription').val();
                 }
-                url = "{{url('/admin/service/classes/add')}}";
-                arr['name'] = $('#classesName').val();
-                arr['categoryId'] = $('#classesCategory option:selected').attr('value');
-                arr['image'] = $('#demo2').attr('src');
-                arr['description'] = $('#classesDescription').val();
             }
             // console.log(arr);
             ajaxAdd(url,arr);

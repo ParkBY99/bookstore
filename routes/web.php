@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 // /
 Route::get('/', function () {
     if (session()->get('admin')) {
-        return redirect('/admin/index');
+        return redirect('/admin/books/category');
     }else{
         return redirect('/admin/login');
     }
@@ -42,7 +42,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function (){
             // 图书分类视图
             Route::get('category','CategoryController@toCategory');
             Route::get('category_add','CategoryController@toCategoryAdd');
-            Route::get('classes_edit/{classId}','CategoryController@toClassesEdit');
+            Route::get('classes_edit','CategoryController@toClassesEdit');
             // 图书详情视图
             Route::get('book','BookController@toBook');
             Route::get('book_add','BookController@toBookAdd');
@@ -55,6 +55,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function (){
         Route::group(['prefix' => 'service'],function (){
             // 图片上传
             Route::post('category/img','CategoryController@categoryImg');
+        // 图书分类/类别功能
             // 分类添加
             Route::post('category/add','CategoryController@categoryAdd');
             // 分类删除
@@ -65,6 +66,15 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function (){
             Route::post('classes/del','CategoryController@classesDel');
             // 类别编辑
             Route::post('classes/edit','CategoryController@classesEdit');
+
+        // 图书详情功能
+            // 分类添加
+            Route::post('book/add','BookController@bookAdd');
+            // 分类删除
+            Route::post('book/del','BookController@bookDel');
+            // 类别编辑
+            Route::post('book/edit','BookController@bookEdit');
+
         });
 
     });

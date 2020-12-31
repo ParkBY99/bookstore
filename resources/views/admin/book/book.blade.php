@@ -24,7 +24,7 @@
                     <span><h3 class="card-title">图书详情列表</h3></span>
                     <span style="float: right;">
                         <div class="btn-group">
-                            <a class="btn btn-add" href="{{url('admin/books/category_add')}}" style="">
+                            <a class="btn btn-add" href="{{url('admin/books/book_add')}}" style="">
                                 <i class="nav-icon fas fa-plus-square"></i>
                                 &ensp;添加图书
                             </a>
@@ -36,18 +36,20 @@
                     <table id="book-list" class="table table-bordered table-hover text-wrap">
                         <thead>
                         <tr>
-                            <th width="280">图书名称</th>
+                            <th width="200">图书名称</th>
                             <th width="110">图书作者</th>
                             <th width="90">图书分类</th>
+                            <th width="90">图书类别</th>
                             <th width="90">图书图片</th>
                             <th width="90">图书价格</th>
                             <th width="90">出租价格</th>
-                            <th width="90">图书数量</th>
+                            <th width="90">图书总量</th>
+                            <th width="90">图书库存</th>
                             <th width="90">是否热销</th>
                             <th width="90">状态</th>
                             <th width="110">更新时间</th>
                             <th width="90">更新者</th>
-                            <th width="300">操作</th>
+                            <th width="250">操作</th>
                         </tr>
                         </thead>
                         <tbody id="bookBody">
@@ -56,11 +58,13 @@
                                 <td width="200">{{$book->name}}</td>
                                 <td width="110">{{$book->author}}</td>
                                 <td width="90">{{$book->category->name}}</td>
-                                <td style="text-align: center;" width="90">
-                                    <img src="{{asset('/Bookstore'.$book->book_img)}}" style="width: 60px;">
+                                <td width="90">{{$book->classes->name}}</td>
+                                <td style="text-align: center; display:table-cell; vertical-align:middle;" width="90">
+                                    <img src="{{$book->book_img}}" style="width: 60px;">
                                 </td>
                                 <td width="90">{{$book->price}}</td>
                                 <td width="90">{{$book->rental_prices}}</td>
+                                <td width="90">{{$book->quantity}}</td>
                                 <td width="90">{{$book->inventory}}</td>
                                 <td width="90">
                                     @if($book->hot == 0)
@@ -92,7 +96,7 @@
                                 </td>
                             </tr>
                             <tr class="expandable-body">
-                                <td colspan="12">
+                                <td colspan="14">
                                     <p>
                                         <b>图书简介：</b><br>
                                         <span>&emsp;&emsp;{{$book->description}}</span>

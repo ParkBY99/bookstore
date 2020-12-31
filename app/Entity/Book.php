@@ -16,4 +16,7 @@ class Book extends Model
     public function category(){
         return $this->hasOne('App\Entity\BookCategory','id','category_id');
     }
+    public function classes(){
+        return $this->hasOne('App\Entity\BookCategoryClasses','id','classes_id');
+    }
 }

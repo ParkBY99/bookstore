@@ -44,13 +44,15 @@ class CategoryController extends Controller
     }
 
     // 类别编辑视图
-    public function toClassesEdit(Request $request,Int $id){
-        $class = BookCategoryClasses::where('id',$id)->frist();
+    public function toClassesEdit(Request $request){
+        $id = $request->input('id','');
+        $class = BookCategoryClasses::where('id',$id)->first();
         $categories = BookCategory::orderBy('id','asc')->get();
-        return view('admin/category/category_edit',[
+        return view('admin.category.classes_edit',[
             'categories' => $categories,
             'class' => $class,
         ]);
+
     }
 
     // 分类图片上传

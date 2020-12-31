@@ -20,9 +20,7 @@ class AdminLoginMiddleware
         $admin = $request->session()->get('admin','');
         if($admin == ''){
             return redirect('/admin/login');
-
         }
         return $next($request);
-
     }
 }
