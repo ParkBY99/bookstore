@@ -15,14 +15,14 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="classesName">类别名称</label>
+                        <label for="classesName">类别名称：</label>
                         <input type="text" id="classesName" class="form-control" value="{{$class->name}}">
                         <p id="classesValidate"></p>
                     </div>
                     <div class="form-group">
-                        <label for="classesCategory">所属分类名称</label>
+                        <label for="classesCategory">所属分类名称：</label>
                         <select id="classesCategory" class="form-control custom-select">
-                            <option selected disabled value="{{$class->category_id}}">{{$class->category->name}}</option>
+                            <option selected value="{{$class->category_id}}">{{$class->category->name}}</option>
                             @foreach($categories as $category)
                                 @if($class->category_id !== $category->id)
                                     <option value="{{$category->id}}">{{$category->name}}</option>
@@ -32,6 +32,7 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="demo2">类别代表性图片：</label>
                         <div class="layui-upload">
                             <div class="layui-upload-list float-left">
                                 <img class="layui-upload-img demoUp" src="{{asset($class->classes_img)}}" id="demo2"
@@ -44,7 +45,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="classesDescription">类别描述</label>
+                        <label for="classesDescription">类别描述：</label>
                         <textarea id="classesDescription" class="form-control" rows="5"
                                   value="{{$class->description}}">{{$class->description}}</textarea>
                     </div>

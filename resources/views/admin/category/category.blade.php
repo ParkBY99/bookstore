@@ -35,7 +35,7 @@
                                     <i class="fas fa-caret-right fa-fw"></i>
                                     {{$category->name}}
                                     <span class="float-right ">
-                                    <a class="btn btn-block btn-outline-diy" onclick="Del(1,{{$category->id}})">
+                                    <a class="btn btn-block btn-outline-diy categoryDelBtn" onclick="Del(event,1,{{$category->id}})">
                                         <i class="fas fa-trash"></i>
                                      </a>
                                 </span>
@@ -73,7 +73,7 @@
                                                             </div>
                                                             <div class="btn-group" style="margin: 5px 0 5px 10px;">
                                                                 <a class="btn btn-block btn-outline-diy"
-                                                                   onclick="Del(2,{{$class->id}})">
+                                                                   onclick="Del(event,2,{{$class->id}})">
                                                                     <i class="fas fa-trash"></i>&nbsp; 删除
                                                                 </a>
                                                             </div>
@@ -108,7 +108,8 @@
         $('#categoryBody tr:first').attr('aria-expanded', true);
     </script>
     <script>
-        function Del(btnFlag, id) {
+        function Del(e,btnFlag, id) {
+            e.stopPropagation();
             if (confirm("确定删除吗？")) {
                 var url = '';
                 if (btnFlag == 1) {
