@@ -84,12 +84,12 @@
                                 <td width="90">{{$book->user->user_name}}</td>
                                 <td width="300">
                                     <div class="btn-group" style="margin-left: 10px;">
-                                        <a class="btn btn-app">
+                                        <a class="btn btn-app" href="{{url('admin/books/book_edit')}}?id={{$book->id}}">
                                             <i class="fas fa-edit"></i> 编辑
                                         </a>
                                     </div>
                                     <div class="btn-group" style="margin-left: 10px;">
-                                        <a class="btn btn-app">
+                                        <a class="btn btn-app" onclick="bookDel(event,{{$book->id}})">
                                             <i class="fas fa-trash"></i> 删除
                                         </a>
                                     </div>
@@ -137,8 +137,50 @@
                 "autoWidth": false,
                 "responsive": true,
             });
-
         });
         $('#bookBody tr:first').attr('aria-expanded',true);
+    </script>
+    <script>
+        function bookDel(e,bookId) {
+            e.stopPropagation();
+            if (confirm("确定删除吗？")) {
+                var url = "{{url('admin/service/book/del')}}";
+                ajaxDel(url, bookId);
+            } else {
+                return;
+            }
+        }
+
+        function ajaxDel(delUrl, id) {
+            $.ajax({
+                type: 'post', // 提交方式 get/post
+                url: delUrl, // 需要提交的 url
+                dataType: 'json',
+                data: {
+                    id: id,
+                    _token: '{{csrf_token()}}',
+                },
+                success: function (data) {
+                    if (data == null) {
+                        alert('服务端错误');
+                        return;
+                    }
+                    if (data.status != 0) {
+                        alert(data.message);
+                        return;
+                    }
+                    alert(data.message);
+                    window.location.href = "{{url('admin/books/book')}}";
+                },
+                error: function (xhr, status, error) {
+                    // console.log(xhr);
+                    // console.log(status);
+                    // console.log(error);
+                    alert('ajax error');
+                },
+                beforeSend: function (xhr) {
+                },
+            })
+        }
     </script>
 @endsection

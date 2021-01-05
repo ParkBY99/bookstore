@@ -36,9 +36,9 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function (){
         Route::get('index','IndexController@toIndex');
         // 禁止访问首页视图（父模板）index
         Route::get('index','LoginController@toExit');
-        // 图书管理
+        // admin/books
+        // 图书管理 视图
         Route::group(['prefix' => 'books'],function (){
-            // admin/books
             // 图书分类视图
             Route::get('category','CategoryController@toCategory');
             Route::get('category_add','CategoryController@toCategoryAdd');
@@ -51,7 +51,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function (){
             Route::get('comment','CommentController@toComment');
         });
         // admin/service
-        // 服务
+        // 图书管理 服务
         Route::group(['prefix' => 'service'],function (){
             // 图片上传
             Route::post('category/img','CategoryController@categoryImg');

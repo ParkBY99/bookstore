@@ -2,7 +2,7 @@
 
 @section('content')
     <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-    <div class="row" onload="onLoad({{$classes}})">
+    <div class="row">
         <div class="col-md-10" style="margin: 20px auto;">
             <div class="card card-diy">
                 <div class="card-header">
@@ -15,18 +15,18 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group float-left" style="width:49%;">
-                        <label for="bookName">图书名称</label>
+                        <label for="bookName">图书名称：</label>
                         <input type="text" id="bookName" class="form-control" placeholder="请输入图书名称">
                         <p id="bookNameValidate"></p>
                     </div>
                     <div class="form-group float-left" style="width:49%;margin-left: 1%;">
-                        <label for="author">图书作者</label>
+                        <label for="author">图书作者：</label>
                         <input type="text" id="author" class="form-control" placeholder="请输入图书作者">
                         <p id="authorValidate"></p>
                     </div>
                     <div class="clearfix"></div>
                     <div class="form-group float-left" style="width:49%;">
-                        <label for="bookCategory">图书分类</label>
+                        <label for="bookCategory">图书分类：</label>
                         <select id="bookCategory" class="form-control custom-select" onchange="change({{$classes}})">
                             @foreach($categories as $category)
                                 {{--<option selected disabled>小说</option>--}}
@@ -35,7 +35,7 @@
                         </select>
                     </div>
                     <div class="form-group float-left" style="width:49%;margin-left: 1%;">
-                        <label for="bookClasses">图书类别</label>
+                        <label for="bookClasses">图书类别：</label>
                         <select id="bookClasses" class="form-control custom-select">
                             @foreach($classesFirst as $class)
                             <option value="{{$class->id}}">{{$class->name}}</option>
@@ -44,21 +44,22 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="form-group float-left" style="width: 35%;">
-                        <label for="price">图书价格</label>
+                        <label for="price">图书价格：</label>
                         <input type="number" id="price" class="form-control" placeholder="请输入图书价格">
                         <p id="priceValidate"></p>
                     </div>
                     <div class="form-group float-left" style="width: 35%; margin-left: 1%;">
-                        <label for="rentalPrices">出租价格</label>
+                        <label for="rentalPrices">出租价格：</label>
                         <input type="number" id="rentalPrices" class="form-control" placeholder="请输入图书出租价格">
                         <p id="rentalPricesValidate"></p>
                     </div>
                     <div class="form-group float-left" style="width: 27%; margin-left: 1%;">
-                        <label for="quantity">图书总量</label>
+                        <label for="quantity">图书总量：</label>
                         <input type="number" id="quantity" class="form-control" placeholder="默认为0">
                     </div>
                     <div class="clearfix"></div>
                     <div class="form-group">
+                        <label for="demo2">图书图片：</label>
                         <div class="layui-upload">
                             <div class="layui-upload-list float-left">
                                 <img class="layui-upload-img demoUp" src="{{asset('/Bookstore/uploads/uploadDefault.png')}}" id="demo2" style="width: 100px; height: 125px; border-radius: 5px; border: 1px dashed lightgray;" onclick="uploadBtn(2)">
@@ -68,12 +69,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="bookDescription">图书简介</label>
+                        <label for="bookDescription">图书简介：</label>
                         <textarea id="bookDescription" class="form-control" rows="5"></textarea>
                     </div>
                     <div class="row">
                         <div class="col-12" style="text-align: center;">
-                            <button type="submit" class="btn btn-add btn-lg" onclick="Add(2)">&ensp;&ensp;&ensp;添&ensp;&ensp;&ensp;加&ensp;&ensp;&ensp;</button>
+                            <button type="submit" class="btn btn-add btn-lg" onclick="Add()">&ensp;&ensp;&ensp;添&ensp;&ensp;&ensp;加&ensp;&ensp;&ensp;</button>
                             {{--<a href="#" class="btn btn-secondary">Cancel</a>--}}
                             {{--<input type="submit" value="Create new Porject" class="btn btn-success float-right">--}}
                         </div>
@@ -138,10 +139,9 @@
             });
         }
 
-        function Add(btnFlag) {
+        function Add() {
             var arr = {};
             var url = '';
-            if (btnFlag == 2){
                 if ($('#bookName').val() == null || $('#bookName').val() == '') {
                     $('#bookNameValidate').html('<span style="color: #FF5722;">* 图书名称不能为空</span>');
                 }else {
@@ -177,7 +177,6 @@
                     arr['description'] = $('#bookDescription').val();
                     ajaxAdd(url,JSON.stringify(arr));
                 }
-            }
             // console.log(arr);
         }
 
