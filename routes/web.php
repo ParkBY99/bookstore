@@ -53,6 +53,10 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function (){
         // admin/service
         // 图书管理 服务
         Route::group(['prefix' => 'service'],function (){
+        //user
+            //修改密码
+            Route::post('user/pswd','UserController@pswd');
+
             // 图片上传
             Route::post('category/img','CategoryController@categoryImg');
         // 图书分类/类别功能

@@ -59,7 +59,7 @@
 <!-- AdminLTE App -->
 <script src="{{asset('/admin/js/adminlte.min.js')}}"></script>
 <!-- layui -->
-<script src="{{asset('/layui/layui.js')}}"></script>
+<script src="{{asset('/layui/layui.all.js')}}"></script>
 @yield('my-js')
 
 </body>

@@ -74,7 +74,7 @@
                         <div class="layui-upload">
                             <div class="layui-upload-list float-left">
                                 <img class="layui-upload-img demoUp"
-                                     src="{{asset('/Bookstore/uploads/uploadDefault.png')}}" id="demo2"
+                                     src="{{asset($book->book_img)}}" id="demo2"
                                      style="width: 100px; height: 125px; border-radius: 5px; border: 1px dashed lightgray;"
                                      onclick="uploadBtn(2)">
                             </div>
@@ -87,27 +87,27 @@
                         <select id="hot" class="form-control custom-select">
                             @if($book->hot == 1)
                                 <option selected value="1">热销</option>
-                                <option value="0">非热销</option>
-                            @elseif($book->hot == 0)
+                                <option value="2">非热销</option>
+                            @elseif($book->hot == 2)
                                 <option value="1">热销</option>
-                                <option selected value="0">非热销</option>
+                                <option selected value="2">非热销</option>
                             @endif
                         </select>
                         <label for="status">状态：</label>
                         <select id="status" class="form-control custom-select">
                             @if($book->book_status == 1)
                                 <option selected value="1">已上架</option>
-                                <option value="0">已下架</option>
-                            @elseif($book->book_status == 0)
+                                <option value="2">已下架</option>
+                            @elseif($book->book_status == 2)
                                 <option value="1">已上架</option>
-                                <option selected value="0">已下架</option>
+                                <option selected value="2">已下架</option>
                             @endif
                         </select>
                     </div>
                     <div class="clearfix"></div>
                     <div class="form-group">
                         <label for="bookDescription">图书简介:</label>
-                        <textarea id="bookDescription" class="form-control" rows="5"></textarea>
+                        <textarea id="bookDescription" class="form-control" rows="5">{{$book->description}}</textarea>
                     </div>
                     <div class="row">
                         <div class="col-12" style="text-align: center;">
@@ -124,47 +124,8 @@
 @endsection
 
 @section('my-js')
-    <script>
-        var demo;
-
-        function uploadBtn(btnFlag) {
-            demo = '#demo' + btnFlag;
-        }
-
-        layui.use(['upload'], function () {
-            var $ = layui.jquery
-                , upload = layui.upload
-            var t_token = $('#token').val();
-            var uploadInst = upload.render({
-                elem: '.demoUp'
-                , url: '{{url("admin/service/category/img")}}'
-                , data: {'_token': t_token}
-                , before: function (obj) {
-                    //预读本地文件示例，不支持ie8
-                    // obj.preview(function(index, file, result){
-                    //     $('#demo1').attr('src', result); //图片链接（base64）
-                    // });
-                }
-                , done: function (res) {
-
-                    //如果上传失败
-                    if (res.code != 200) {
-                        return layer.msg('上传失败');
-                    }
-                    //上传成功
-                    // console.log(res);
-                    // $('#demoText').html(res.data.value);
-                    $(demo).attr('src', res.data.src);
-                }
-                , error: function () {
-                    this.item.html('重选上传');
-                    //演示失败状态，并实现重传
-                    var demoText = $('#demoText');
-                    demoText.html('<span style="color: #FF5722;">上传失败</span>');
-                }
-            });
-        });
-    </script>
+    {{--layui图片上传JS--}}
+    @include('admin.public.layuiUploadJS')
     <script>
         function change(classes) {
             $('#bookClasses').find('option').remove();

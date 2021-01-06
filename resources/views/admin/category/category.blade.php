@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-12" style="margin: auto;margin-top: 20px;">
+        <div class="col-12" style="margin: auto;margin-top: 30px;">
             <!-- Content Header (Page header) -->
             {{--<section class="content-header">--}}
             {{--<div class="container-fluid">--}}

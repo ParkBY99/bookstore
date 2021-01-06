@@ -10,16 +10,38 @@ use App\Http\Controllers\Controller;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class BookController extends Controller
 {
     // 图书详情管理视图
-    public function toBook(){
-        $book = new Book();
-
-        $books = $book->orderBy('id','desc')->paginate(10);
-        return view('admin/book/book',[
+    public function toBook(Request $request){
+//        $book = new Book();
+        $categories = BookCategory::orderBy('id','asc')->get();
+        $classes = BookCategoryClasses::orderBy('id','asc')->get();
+        $keyword = [
+            'name' => $request->input('name'),
+            'author' => $request->input('author'),
+            'category_id' => $request->input('category'),
+            'classes_id' => $request->input('classes'),
+            'hot' => $request->input('hot'),
+            'book_status' => $request->input('status'),
+        ];
+        $classesFirst = BookCategoryClasses::where('category_id',$keyword['category_id'])->get();
+        $books = Book::where('name', 'like', '%' . $keyword['name'] . '%')
+            ->Where('author', 'like', '%' . $keyword['author'] . '%')
+            ->Where('category_id', 'like', '%' . $keyword['category_id'] . '%')
+            ->Where('classes_id', 'like', '%' . $keyword['classes_id'] . '%')
+            ->Where('hot', 'like', '%' . $keyword['hot'] . '%')
+            ->Where('book_status', 'like', '%' . $keyword['book_status'] . '%')
+            ->orderByRaw('convert(name using gbk)')
+            ->paginate(6);
+        return view('admin.book.book',[
             'books' => $books,
+            'categories' => $categories,
+            'classes' => $classes,
+            'classesFirst' => $classesFirst,
+            'keyword' => $keyword,
         ]);
     }
 
@@ -65,7 +87,7 @@ class BookController extends Controller
             'rental_prices' => $arr->rentalPrices,
             'quantity' => $arr->quantity,
             'inventory' => $arr->quantity,
-            'hot' => 0,
+            'hot' => 2,
             'book_status' => 1,
             'update_time' => date('Y-m-d H:w:s', time()),
             'update_user_id' => $admin->id,
