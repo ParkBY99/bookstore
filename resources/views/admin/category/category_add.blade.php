@@ -124,9 +124,6 @@
 @endsection
 
 @section('my-js')
-    {{--layui图片上传JS--}}
-    @include('admin.public.layuiUploadJS')
-    {{--页面方法--}}
     <script>
         function Add(btnFlag) {
             var arr = {};

@@ -50,12 +50,16 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function (){
             // 图书评论视图
             Route::get('comment','CommentController@toComment');
         });
+        Route::group(['prefix' => 'users'],function (){
+            Route::get('user','UserController@toUser');
+        });
         // admin/service
         // 图书管理 服务
         Route::group(['prefix' => 'service'],function (){
         //user
             //修改密码
             Route::post('user/pswd','UserController@pswd');
+            Route::post('user/add','UserController@add');
 
             // 图片上传
             Route::post('category/img','CategoryController@categoryImg');

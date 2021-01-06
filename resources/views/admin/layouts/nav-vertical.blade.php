@@ -56,13 +56,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="./index.html" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="{{url('admin/orders/order')}}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>订单列表</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index2.html" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="{{url('admin/orders/order_form')}}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>订单报表</p>
                             </a>
@@ -80,7 +80,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="./index.html" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="{{url('admin/notes/note')}}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>动态详情管理</p>
                             </a>
@@ -98,10 +98,9 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="./index.html" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="{{url('admin/users/user')}}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>用户详情列表</p>
-
                             </a>
                         </li>
                     </ul>

@@ -63,8 +63,6 @@
 @endsection
 
 @section('my-js')
-    {{--layui图片上传JS--}}
-    @include('admin.public.layuiUploadJS')
     <script>
         function Edit(btnFlag, id) {
             var arr = {};

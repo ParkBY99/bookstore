@@ -33,11 +33,12 @@ class LoginController extends Controller
             return  $json_uni->toJson();
         }else{
             $admin = \App\Entity\User::where('user_name',$username)->where('user_pwd',md5($password))->first();
-
             if (!$admin){
                 $json_uni->status = 2;
                 $json_uni->message = '账户或密码错误！';
             }else{
+                $admin->last_login_time = date('Y-m-d H:i:s', time());
+                $admin->save();
                 $json_uni->status = 0;
                 $json_uni->message = '登录成功！';
                 $request->session()->put('admin',$admin);

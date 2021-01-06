@@ -89,8 +89,6 @@
 @endsection
 
 @section('my-js')
-    {{--layui图片上传JS--}}
-    @include('admin.public.layuiUploadJS')
     <script>
         function change(classes) {
             $('#bookClasses').find('option').remove();

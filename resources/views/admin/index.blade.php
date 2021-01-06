@@ -60,6 +60,9 @@
 <script src="{{asset('/admin/js/adminlte.min.js')}}"></script>
 <!-- layui -->
 <script src="{{asset('/layui/layui.all.js')}}"></script>
+<!-- layuiUploadJS  layui图片上传JS-->
+@include('admin.public.layuiUploadJS')
+
 @yield('my-js')
 
 </body>

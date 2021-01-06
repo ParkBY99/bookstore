@@ -13,7 +13,9 @@
         var uploadInst = upload.render({
             elem: '.demoUp'
             , url: '{{url("admin/service/category/img")}}'
-            , data: {'_token': t_token}
+            , data: {
+                '_token': '{{csrf_token()}}',
+            }
             , before: function (obj) {
                 //预读本地文件示例，不支持ie8
                 // obj.preview(function(index, file, result){

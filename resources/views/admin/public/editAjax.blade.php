@@ -1,5 +1,5 @@
 <script>
-    function editAjax(url, arrData,hrefURL) {
+    function editAjax(url, arrData, hrefURL) {
         $.ajax({
             type: 'post',
             url: url,
@@ -14,7 +14,7 @@
                     return;
                 }
                 if (data.status != 0) {
-                    $('#relValidate').html('<span style="color: #FF5722;">* ' + data.message + '</span>');
+                    $('.Validate').html('<span style="color: #FF5722;">* ' + data.message + '</span>');
                     return;
                 }
                 alert(data.message);
