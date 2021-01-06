@@ -171,7 +171,7 @@
                                                 </div>
                                                 <div class="btn-group" style="margin-left: 10px;">
                                                     <a class="btn btn-app" onclick="bookDel(event,{{$book->id}})">
-                                                        <i class="fas fa-trash"></i> 删除
+                                                        <i class="fas fa-trash-alt"></i> 删除
                                                     </a>
                                                 </div>
                                             </td>
@@ -188,19 +188,17 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="card-footer clearfix">
-                                <div class="float-right">
-                                    {{--Laravel 自带分页功能paginate(n)，通过此获得分页按钮，再次上传参数--}}
-                                    {{--{{$books->links()}}--}}
-                                    {!! $books->appends([
-                                        'name'=>$keyword['name'],
-                                        'author'=>$keyword['author'],
-                                        'category'=>$keyword['category_id'],
-                                        'classes'=>$keyword['classes_id'],
-                                        'hot'=>$keyword['hot'],
-                                        'book_status'=>$keyword['book_status'],
-                                    ])->render() !!}
-                                </div>
+                            <div class="card-footer" id="bookPage">
+                                {{--Laravel 自带分页功能paginate(n)，通过此获得分页按钮，再次上传参数--}}
+                                {{--{{$books->links()}}--}}
+                                {!! $books->appends([
+                                    'name'=>$keyword['name'],
+                                    'author'=>$keyword['author'],
+                                    'category'=>$keyword['category_id'],
+                                    'classes'=>$keyword['classes_id'],
+                                    'hot'=>$keyword['hot'],
+                                    'book_status'=>$keyword['book_status'],
+                                ])->render() !!}
                             </div>
                         </div>
                     </div>
@@ -214,6 +212,7 @@
 @section('my-js')
     <script>
         $('#bookBody tr:first').attr('aria-expanded', true);
+        $('#bookPage nav ul').attr('class','pagination justify-content-center m-0');
     </script>
     <script>
         function change(classes, keyword) {

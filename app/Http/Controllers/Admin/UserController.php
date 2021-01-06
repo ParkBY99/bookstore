@@ -12,9 +12,9 @@ class UserController extends Controller
 {
     // 用户管理视图
     public function toUser(Request $request){
-
+        $users = User::orderBy('nickname','desc')->paginate(12);
         return view('admin.user.user',[
-
+            'users' => $users,
         ]);
     }
 

@@ -36,7 +36,7 @@
                                     {{$category->name}}
                                     <span class="float-right ">
                                     <a class="btn btn-block btn-outline-diy categoryDelBtn" onclick="Del(event,1,{{$category->id}})">
-                                        <i class="fas fa-trash"></i>
+                                        <i class="fas fa-trash-restore-alt"></i>
                                      </a>
                                 </span>
                                 </td>
@@ -74,7 +74,7 @@
                                                             <div class="btn-group" style="margin: 5px 0 5px 10px;">
                                                                 <a class="btn btn-block btn-outline-diy"
                                                                    onclick="Del(event,2,{{$class->id}})">
-                                                                    <i class="fas fa-trash"></i>&nbsp; 删除
+                                                                    <i class="fas fa-trash-alt"></i>&nbsp; 删除
                                                                 </a>
                                                             </div>
                                                             {{--<button type="button" class="btn btn-block btn-outline-diy">删除</button>--}}

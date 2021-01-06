@@ -150,7 +150,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <a class="btn btn-add" onclick="userAdd()">确认修改</a>
+                <a class="btn btn-add" onclick="userAdd()">添加</a>
             </div>
         </div>
         <!-- /.modal-content -->
