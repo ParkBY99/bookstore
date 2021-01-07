@@ -211,6 +211,7 @@
 
 @section('my-js')
     <script>
+        $('#nav-book').addClass('menu-is-opening menu-open');
         $('#bookBody tr:first').attr('aria-expanded', true);
         $('#bookPage nav ul').attr('class','pagination justify-content-center m-0');
     </script>

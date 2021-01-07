@@ -105,6 +105,7 @@
 
 @section('my-js')
     <script>
+        $('#nav-book').addClass('menu-is-opening menu-open');
         $('#categoryBody tr:first').attr('aria-expanded', true);
     </script>
     <script>

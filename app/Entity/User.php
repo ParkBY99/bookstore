@@ -13,7 +13,7 @@ class User extends Model
 //        'name', 'email', 'password',
 //    ];
 //    关联方法
-    public function contects(){
-        return $this->hasMany('App\Entity\User','user_id','id');
+    public function userrole(){
+        return $this->hasOne('App\Entity\UserRoles','user_id','id');
     }
 }

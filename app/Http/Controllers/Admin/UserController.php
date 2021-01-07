@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Common\JoUni;
 use App\Entity\User;
+use App\Entity\UserRoles;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,10 +13,54 @@ class UserController extends Controller
 {
     // 用户管理视图
     public function toUser(Request $request){
-        $users = User::orderBy('nickname','desc')->paginate(12);
+//        $users = User::orderBy('nickname','desc')->paginate(12);
+        $keyword = [
+            'nickname' => $request->input('nickname'),
+            'username' => $request->input('username'),
+            'email' => $request->input('email'),
+            'registerTime' => $request->input('registerTime'),
+            'userRole' => $request->input('userRole'),
+        ];
+        $users = DB::table('user')
+            ->join('user_roles', 'user.id', '=', 'user_roles.user_id')
+            ->where('user.nickname', 'like', '%' . $keyword['nickname'] . '%')
+            ->Where('user.user_name', 'like', '%' . $keyword['username'] . '%')
+            ->Where('user.email', 'like', '%' . $keyword['email'] . '%')
+            ->Where('user.register_time', 'like', '%' . $keyword['registerTime'] . '%')
+            ->Where('user_roles.role',  'like', '%' . $keyword['userRole'] . '%')
+            ->orderByRaw('convert(nickname using gbk)')
+            ->select('user.*', 'user_roles.role')
+            ->paginate(12);
+//        dd($users);
         return view('admin.user.user',[
             'users' => $users,
+            'keyword' => $keyword,
         ]);
+    }
+
+    // 修改密码
+    public function edit(Request $request){
+        $id = $request->session()->get('admin')->id;
+        $arr = $request->input('arr','');
+        $arr = json_decode($arr);
+        $user = User::where('id',$id)->first();
+        $user->user_img = $arr->activeUserimg;
+        $user->nickname = $arr->activeNickname;
+        $user->user_name = $arr->activeUsername;
+        $user->email = $arr->activeEmail;
+        $rel = $user->save();
+        $jouni = new JoUni();
+        if ($rel){
+            $admin = User::where('id',$id)->first();
+            $request->session()->put('admin',$admin);
+            $jouni->status = 0;
+            $jouni->message = "修改成功！";
+            return $jouni->toJson();
+        }else{
+            $jouni->status = 1;
+            $jouni->message = "修改失败！";
+            return $jouni->toJson();
+        }
     }
 
     // 修改密码
@@ -38,6 +83,7 @@ class UserController extends Controller
                 $user->user_pwd = md5($arr->newPassword);
                 $rel = $user->save();
                 if ($rel){
+                    //清空session以进行重新登录
                     $request->session()->put('admin','');
                     $jouni->status = 0;
                     $jouni->message = "修改成功，请重新登录！";
@@ -80,9 +126,10 @@ class UserController extends Controller
                 ];
 
                 DB::beginTransaction(); //开启事务
-                $resUser = DB::table('user')->insert($user);
+                $resUser = DB::table('user')->insertGetId($user);
                 if ($resUser) {
                     $userRole = [
+                        'user_id' => $resUser,
                         'username' => $arr->username,
                         'role' => 'ROLE_ADMIN',
                     ];

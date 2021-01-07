@@ -37,7 +37,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function (){
         // 禁止访问首页视图（父模板）index
         Route::get('index','LoginController@toExit');
         // admin/books
-        // 图书管理 视图
+        // 图书管理View
         Route::group(['prefix' => 'books'],function (){
             // 图书分类视图
             Route::get('category','CategoryController@toCategory');
@@ -50,8 +50,18 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function (){
             // 图书评论视图
             Route::get('comment','CommentController@toComment');
         });
+        // 用户管理View
         Route::group(['prefix' => 'users'],function (){
             Route::get('user','UserController@toUser');
+        });
+        // 订单管理View
+        Route::group(['prefix' => 'orders'],function (){
+            Route::get('order','OrderController@toOrder');
+            Route::get('order_form','OrderController@toOrderForm');
+        });
+        // 动态管理View
+        Route::group(['prefix' => 'notes'],function (){
+            Route::get('note','NoteController@toNote');
         });
         // admin/service
         // 图书管理 服务
@@ -59,7 +69,10 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function (){
         //user
             //修改密码
             Route::post('user/pswd','UserController@pswd');
+            //添加管理员
             Route::post('user/add','UserController@add');
+            //修改管理员信息
+            Route::post('user/edit','UserController@edit');
 
             // 图片上传
             Route::post('category/img','CategoryController@categoryImg');

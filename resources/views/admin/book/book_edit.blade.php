@@ -125,6 +125,9 @@
 
 @section('my-js')
     <script>
+        $('#nav-book').addClass('menu-is-opening menu-open');
+    </script>
+    <script>
         function change(classes) {
             $('#bookClasses').find('option').remove();
             classes.forEach(function (item) {

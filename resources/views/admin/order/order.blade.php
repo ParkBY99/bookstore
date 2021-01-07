@@ -8,7 +8,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>图书评论</h1>
+                            <h1>订单详情</h1>
                         </div>
                     </div>
                 </div><!-- /.container-fluid -->
@@ -20,11 +20,11 @@
             </section>
         </div>
     </div>
+
 @endsection
 
 @section('my-js')
     <script>
-        $('#nav-book').addClass('menu-is-opening menu-open');
+        $('#nav-order').addClass('menu-is-opening menu-open');
     </script>
 @endsection
-

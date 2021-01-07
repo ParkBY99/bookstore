@@ -16,7 +16,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
 
-                <li class="nav-item menu-open">
+                <li class="nav-item" id="nav-book">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-book-open"></i>
                         <p>
@@ -46,7 +46,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item" id="nav-order">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-indent"></i>
                         <p>
@@ -70,7 +70,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item" id="nav-note">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
@@ -88,7 +88,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item" id="nav-user">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
