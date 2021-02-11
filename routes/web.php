@@ -95,7 +95,6 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function (){
             Route::post('book/del','BookController@bookDel');
             // 类别编辑
             Route::post('book/edit','BookController@bookEdit');
-
         });
 
     });

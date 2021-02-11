@@ -20,18 +20,23 @@ class BookController extends Controller
         $categories = BookCategory::orderBy('id','asc')->get();
         $classes = BookCategoryClasses::orderBy('id','asc')->get();
         $keyword = [
-            'name' => $request->input('name'),
-            'author' => $request->input('author'),
-            'category_id' => $request->input('category'),
-            'classes_id' => $request->input('classes'),
-            'hot' => $request->input('hot'),
-            'book_status' => $request->input('status'),
+            'name' => $request->input('name',''),
+            'author' => $request->input('author',''),
+            'category_id' => $request->input('category',''),
+            'classes_id' => $request->input('classes',''),
+            'hot' => $request->input('hot',''),
+            'book_status' => $request->input('status',''),
         ];
+        $book = new Book();
+        if ($keyword['category_id'] != ""){
+            $book = $book->where('category_id',$keyword['category_id']);
+            if ($keyword['classes_id'] != ""){
+                $book = $book->where('classes_id',$keyword['classes_id']);
+            }
+        }
         $classesFirst = BookCategoryClasses::where('category_id',$keyword['category_id'])->get();
-        $books = Book::where('name', 'like', '%' . $keyword['name'] . '%')
+        $books = $book->where('name', 'like', '%' . $keyword['name'] . '%')
             ->Where('author', 'like', '%' . $keyword['author'] . '%')
-            ->Where('category_id', 'like', '%' . $keyword['category_id'] . '%')
-            ->Where('classes_id', 'like', '%' . $keyword['classes_id'] . '%')
             ->Where('hot', 'like', '%' . $keyword['hot'] . '%')
             ->Where('book_status', 'like', '%' . $keyword['book_status'] . '%')
             ->orderByRaw('convert(name using gbk)')
